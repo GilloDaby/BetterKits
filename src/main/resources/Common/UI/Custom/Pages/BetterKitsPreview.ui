@@ -1,0 +1,130 @@
+$C = "../Common.ui";
+
+Group {
+  Background: (Color: #000000(0.75));
+
+  Group {
+    Anchor: (Width: 700, Height: 600);
+
+    Group #TitleBar {
+      Anchor: (Height: 64, Top: 0);
+      Background: (Color: #0a0f17);
+
+      Group {
+        Anchor: (Height: 2, Bottom: 0);
+        Background: (Color: #1e2c3f);
+      }
+
+      Label #Title {
+        Text: "KIT PREVIEW";
+        Style: (
+          FontSize: 22,
+          RenderBold: true,
+          TextColor: #d4dfe8,
+          RenderUppercase: true,
+          HorizontalAlignment: Center,
+          VerticalAlignment: Center,
+          LetterSpacing: 1.5
+        );
+      }
+    }
+
+    Group #Content {
+      LayoutMode: Top;
+      Anchor: (Top: 64, Bottom: 0);
+      Background: (Color: #0d1521);
+      Padding: (Horizontal: 24, Vertical: 18);
+
+      Label #KitName {
+        Text: "Kit";
+        Anchor: (Height: 22);
+        Style: (
+          FontSize: 13,
+          TextColor: #9fb3c8,
+          RenderBold: true,
+          RenderUppercase: true,
+          LetterSpacing: 0.8
+        );
+      }
+
+      Group { Anchor: (Height: 8); }
+
+      Label #StatusLine {
+        Text: "";
+        Anchor: (Height: 18);
+        Style: (FontSize: 12, TextColor: #7a90a8);
+      }
+
+      Group { Anchor: (Height: 12); }
+
+      Group #ItemsContainer {
+        FlexWeight: 1;
+        LayoutMode: TopScrolling;
+        ScrollbarStyle: $C.@TranslucentScrollbarStyle;
+
+        Group #ItemsList {
+          LayoutMode: Top;
+        }
+      }
+
+      Group { Anchor: (Height: 12); }
+
+      Group #ButtonsRow {
+        LayoutMode: Left;
+        Anchor: (Height: 44);
+
+        Button #ClaimButton {
+          Anchor: (Width: 180, Height: 44);
+          Background: (Color: #1e2c3f);
+          Style: ButtonStyle(
+            Default: (Background: (Color: #1e2c3f)),
+            Hovered: (Background: (Color: #273649)),
+            Pressed: (Background: (Color: #19273a)),
+            Sounds: $C.@ButtonSounds
+          );
+
+          Label #ClaimLabel {
+            Text: "CLAIM";
+            Style: (
+              FontSize: 12,
+              TextColor: #b4c4d3,
+              RenderBold: true,
+              RenderUppercase: true,
+              HorizontalAlignment: Center,
+              VerticalAlignment: Center,
+              LetterSpacing: 1
+            );
+          }
+        }
+
+        Group { Anchor: (Width: 12, Height: 1); }
+
+        Button #CloseButton {
+          Anchor: (Width: 120, Height: 44);
+          Background: (Color: #1e2c3f);
+          Style: ButtonStyle(
+            Default: (Background: (Color: #1e2c3f)),
+            Hovered: (Background: (Color: #273649)),
+            Pressed: (Background: (Color: #19273a)),
+            Sounds: $C.@ButtonSounds
+          );
+
+          Label {
+            Text: "CLOSE";
+            Style: (
+              FontSize: 12,
+              TextColor: #b4c4d3,
+              RenderBold: true,
+              RenderUppercase: true,
+              HorizontalAlignment: Center,
+              VerticalAlignment: Center,
+              LetterSpacing: 1
+            );
+          }
+        }
+      }
+    }
+  }
+}
+
+$C.@BackButton {}

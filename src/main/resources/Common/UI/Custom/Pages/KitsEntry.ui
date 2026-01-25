@@ -1,0 +1,58 @@
+
+$C = "../Common.ui";
+
+Group {
+  LayoutMode: Top;
+  Anchor: (Bottom: 10, Height: 78);
+
+  Button #CardButton {
+    Anchor: (Full: 0);
+    Background: (Color: #161e2b);
+    Style: ButtonStyle(
+      Default: (Background: (Color: #161e2b)),
+      Hovered: (Background: (Color: #1e2938)),
+      Pressed: (Background: (Color: #131a25)),
+      Sounds: $C.@ButtonSounds
+    );
+
+    Group #Background {
+      Visible: false;
+      Anchor: (Full: 0);
+      Background: (TexturePath: "placeholder.png");
+    }
+
+    Group #Icon {
+      Visible: false;
+      Anchor: (Width: 54, Height: 54, Left: 8, Top: 12);
+      Background: (TexturePath: "placeholder.png");
+    }
+
+    Group #TextContainer {
+      Anchor: (Full: 0);
+      Padding: (Vertical: 12, Horizontal: 16);
+
+      Label #Name {
+        Style: LabelStyle(
+          FontSize: 18,
+          RenderBold: true,
+          TextColor: #e0ebf5,
+          HorizontalAlignment: Center,
+          VerticalAlignment: Center
+        );
+        Anchor: (Bottom: 22);
+      }
+
+      Label #Status {
+        Style: LabelStyle(
+          FontSize: 11,
+          TextColor: #7a90a8,
+          RenderUppercase: true,
+          LetterSpacing: 1.2,
+          HorizontalAlignment: Center,
+          VerticalAlignment: Center
+        );
+        Anchor: (Top: 40);
+      }
+    }
+  }
+}

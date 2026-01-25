@@ -1,0 +1,30 @@
+Group {
+  Anchor: (Height: 44);
+  LayoutMode: Left;
+  Padding: (Left: 12, Right: 12, Top: 8, Bottom: 8);
+  Background: (Color: #161e2b);
+
+  ItemIcon #Icon {
+    Anchor: (Width: 24, Height: 24);
+  }
+
+  Group { Anchor: (Width: 10, Height: 1); }
+
+  Label #ItemId {
+    Text: "item_id";
+    Anchor: (Width: 330, Height: 28);
+    Style: (
+      FontSize: 13,
+      TextColor: #d4dfe8
+    );
+  }
+
+  Label #ItemQty {
+    Text: "x1";
+    Anchor: (Width: 60, Height: 28);
+    Style: (
+      FontSize: 13,
+      TextColor: #9fb3c8
+    );
+  }
+}
