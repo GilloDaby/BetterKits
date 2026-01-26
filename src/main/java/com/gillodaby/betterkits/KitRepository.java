@@ -141,6 +141,14 @@ public class KitRepository {
         if (kit.getArmor() == null) {
             kit.setArmor(new ArrayList<>());
         }
+        if (kit.getCommands() == null) {
+            kit.setCommands(new ArrayList<>());
+        } else {
+            List<String> cleaned = kit.getCommands().stream()
+                .filter(value -> value != null && !value.isBlank())
+                .toList();
+            kit.setCommands(new ArrayList<>(cleaned));
+        }
         return kit;
     }
 
@@ -150,6 +158,7 @@ public class KitRepository {
         map.put("displayName", kit.getDisplayName());
         map.put("items", toItemList(kit.getItems()));
         map.put("armor", toItemList(kit.getArmor()));
+        map.put("commands", toCommandList(kit.getCommands()));
         return map;
     }
 
@@ -170,6 +179,20 @@ public class KitRepository {
         return result;
     }
 
+    private List<String> toCommandList(List<String> commands) {
+        List<String> result = new ArrayList<>();
+        if (commands == null) {
+            return result;
+        }
+        for (String command : commands) {
+            if (command == null || command.isBlank()) {
+                continue;
+            }
+            result.add(command.trim());
+        }
+        return result;
+    }
+
     private KitDefinition toKitDefinition(Object value, String key) {
         Map<String, Object> map = JsonUtil.asObjectMap(value);
         if (map.isEmpty()) {
@@ -181,7 +204,8 @@ public class KitRepository {
         boolean allowKitStacking = JsonUtil.asBoolean(map.get("allowKitStacking"), true);
         List<KitItem> items = toItems(JsonUtil.asList(map.get("items")));
         List<KitItem> armor = toItems(JsonUtil.asList(map.get("armor")));
-        return new KitDefinition(name, displayName, cooldownSeconds, items, armor, allowKitStacking);
+        List<String> commands = JsonUtil.asStringList(map.get("commands"));
+        return new KitDefinition(name, displayName, cooldownSeconds, items, armor, commands, allowKitStacking);
     }
 
     private List<KitItem> toItems(List<Object> rawList) {

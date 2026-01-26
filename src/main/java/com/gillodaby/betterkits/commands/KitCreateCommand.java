@@ -87,7 +87,7 @@ public class KitCreateCommand extends AbstractPlayerCommand {
             allowStacking = value != null && value;
         }
 
-        KitDefinition kit = new KitDefinition(key, displayName, 0L, items, armor, allowStacking);
+        KitDefinition kit = new KitDefinition(key, displayName, 0L, items, armor, new ArrayList<>(), allowStacking);
         if (!repository.setKit(kit)) {
             ctx.sendMessage(Message.raw("Failed to create kit."));
             return;

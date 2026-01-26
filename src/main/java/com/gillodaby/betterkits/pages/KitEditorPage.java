@@ -58,6 +58,8 @@ public class KitEditorPage extends InteractiveCustomUIPage<KitEditorPage.KitEdit
         EventData flagStacking = EventData.of("Action", "flag").append("@Flag", "stacking");
         EventData flagOverlap = EventData.of("Action", "flag").append("@Flag", "overlap");
         EventData flagInv = EventData.of("Action", "flag").append("@Flag", "invDeletion");
+        EventData addCommand = new EventData().append("Action", "addCommand")
+            .append("@Command", "#CommandInput.Value");
         EventData close = EventData.of("Action", "close");
 
         events.addEventBinding(CustomUIEventBindingType.Activating, "#AddFromHandButton", addHand, false);
@@ -67,9 +69,11 @@ public class KitEditorPage extends InteractiveCustomUIPage<KitEditorPage.KitEdit
         events.addEventBinding(CustomUIEventBindingType.Activating, "#FlagStackingButton", flagStacking, false);
         events.addEventBinding(CustomUIEventBindingType.Activating, "#FlagOverlapButton", flagOverlap, false);
         events.addEventBinding(CustomUIEventBindingType.Activating, "#FlagInvDelButton", flagInv, false);
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#CommandAddButton", addCommand, false);
         events.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", close, false);
 
         buildItems(cmd, events);
+        buildCommands(cmd, events);
     }
 
     @Override
@@ -85,6 +89,8 @@ public class KitEditorPage extends InteractiveCustomUIPage<KitEditorPage.KitEdit
             case "worlds" -> handleWorldsUpdate(data);
             case "flag" -> handleFlagToggle(data);
             case "remove" -> handleRemoveIndex(data);
+            case "addCommand" -> handleAddCommand(data);
+            case "removeCommand" -> handleRemoveCommand(data);
             default -> {
             }
         }
@@ -226,6 +232,8 @@ public class KitEditorPage extends InteractiveCustomUIPage<KitEditorPage.KitEdit
         EventData flagStacking = EventData.of("Action", "flag").append("@Flag", "stacking");
         EventData flagOverlap = EventData.of("Action", "flag").append("@Flag", "overlap");
         EventData flagInv = EventData.of("Action", "flag").append("@Flag", "invDeletion");
+        EventData addCommand = new EventData().append("Action", "addCommand")
+            .append("@Command", "#CommandInput.Value");
         EventData close = EventData.of("Action", "close");
 
         events.addEventBinding(CustomUIEventBindingType.Activating, "#AddFromHandButton", addHand, false);
@@ -235,6 +243,7 @@ public class KitEditorPage extends InteractiveCustomUIPage<KitEditorPage.KitEdit
         events.addEventBinding(CustomUIEventBindingType.Activating, "#FlagStackingButton", flagStacking, false);
         events.addEventBinding(CustomUIEventBindingType.Activating, "#FlagOverlapButton", flagOverlap, false);
         events.addEventBinding(CustomUIEventBindingType.Activating, "#FlagInvDelButton", flagInv, false);
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#CommandAddButton", addCommand, false);
         events.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", close, false);
 
         KitSettings settings = BetterKitsPlugin.get().getSettingsRepository().getOrDefault(kitName);
@@ -244,7 +253,48 @@ public class KitEditorPage extends InteractiveCustomUIPage<KitEditorPage.KitEdit
         updateFlagLabels(cmd, settings);
 
         buildItems(cmd, events);
+        buildCommands(cmd, events);
         sendUpdate(cmd, events, false);
+    }
+
+    private void handleAddCommand(KitEditorEventData data) {
+        String command = data.command != null ? data.command.trim() : "";
+        if (command.isBlank()) {
+            playerRef.sendMessage(Message.raw("Command cannot be empty."));
+            return;
+        }
+        KitDefinition kit = getKit();
+        if (kit == null) {
+            playerRef.sendMessage(Message.raw("Kit not found."));
+            close();
+            return;
+        }
+        List<String> commands = kit.getCommands() != null ? new ArrayList<>(kit.getCommands()) : new ArrayList<>();
+        commands.add(command);
+        kit.setCommands(commands);
+        repository.setKit(kit);
+        refresh();
+    }
+
+    private void handleRemoveCommand(KitEditorEventData data) {
+        int index = parseIndex(data);
+        if (index < 0) {
+            return;
+        }
+        KitDefinition kit = getKit();
+        if (kit == null) {
+            playerRef.sendMessage(Message.raw("Kit not found."));
+            close();
+            return;
+        }
+        List<String> commands = kit.getCommands() != null ? new ArrayList<>(kit.getCommands()) : new ArrayList<>();
+        if (index >= commands.size()) {
+            return;
+        }
+        commands.remove(index);
+        kit.setCommands(commands);
+        repository.setKit(kit);
+        refresh();
     }
 
     private void buildItems(UICommandBuilder cmd, UIEventBuilder events) {
@@ -273,6 +323,28 @@ public class KitEditorPage extends InteractiveCustomUIPage<KitEditorPage.KitEdit
 
             EventData remove = EventData.of("Action", "remove").append("Index", String.valueOf(index));
             events.addEventBinding(CustomUIEventBindingType.Activating, selector + " #RemoveButton", remove, false);
+            index++;
+        }
+    }
+
+    private void buildCommands(UICommandBuilder cmd, UIEventBuilder events) {
+        cmd.clear("#CommandsList");
+        KitDefinition kit = getKit();
+        if (kit == null || kit.getCommands() == null || kit.getCommands().isEmpty()) {
+            cmd.appendInline("#CommandsList", "Label { Text: \"No commands.\"; Style: (FontSize: 12, TextColor: #7a90a8); Anchor: (Height: 18); }");
+            return;
+        }
+        int index = 0;
+        for (String command : kit.getCommands()) {
+            if (command == null || command.isBlank()) {
+                continue;
+            }
+            cmd.append("#CommandsList", "Pages/BetterKitsCommandItem.ui");
+            String selector = "#CommandsList[" + index + "]";
+            cmd.set(selector + " #CommandText.Text", command);
+
+            EventData remove = EventData.of("Action", "removeCommand").append("Index", String.valueOf(index));
+            events.addEventBinding(CustomUIEventBindingType.Activating, selector + " #RemoveCommandButton", remove, false);
             index++;
         }
     }
@@ -365,6 +437,9 @@ public class KitEditorPage extends InteractiveCustomUIPage<KitEditorPage.KitEdit
             .append(new KeyedCodec<>("@Flag", Codec.STRING),
                 (data, value) -> data.flag = value,
                 data -> data.flag).add()
+            .append(new KeyedCodec<>("@Command", Codec.STRING),
+                (data, value) -> data.command = value,
+                data -> data.command).add()
             .build();
 
         public String index;
@@ -374,6 +449,7 @@ public class KitEditorPage extends InteractiveCustomUIPage<KitEditorPage.KitEdit
         public String cooldown;
         public String worlds;
         public String flag;
+        public String command;
 
         public KitEditorEventData() {
         }

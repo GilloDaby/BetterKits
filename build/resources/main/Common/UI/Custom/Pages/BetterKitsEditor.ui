@@ -315,6 +315,80 @@ Group {
         }
       }
 
+      Group { Anchor: (Height: 10); }
+
+      Group #CommandsRow {
+        LayoutMode: Left;
+        Anchor: (Height: 44);
+
+        Group {
+          Anchor: (Width: 420, Height: 44);
+          Background: (Color: #161e2b);
+          Padding: (Full: 2);
+
+          TextField #CommandInput {
+            PlaceholderText: "Command (no /) - use {player}";
+            Style: (FontSize: 13, TextColor: #d4dfe8);
+            PlaceholderStyle: (TextColor: #4a5d75, FontSize: 12);
+            Background: (Color: #00000000);
+            Padding: (Horizontal: 12, Vertical: 11);
+          }
+        }
+
+        Group { Anchor: (Width: 12, Height: 1); }
+
+        Button #CommandAddButton {
+          Anchor: (Width: 140, Height: 44);
+          Background: (Color: #1e2c3f);
+          Style: ButtonStyle(
+            Default: (Background: (Color: #1e2c3f)),
+            Hovered: (Background: (Color: #273649)),
+            Pressed: (Background: (Color: #19273a)),
+            Sounds: $C.@ButtonSounds
+          );
+
+          Label {
+            Text: "ADD COMMAND";
+            Style: (
+              FontSize: 11,
+              TextColor: #b4c4d3,
+              RenderBold: true,
+              RenderUppercase: true,
+              HorizontalAlignment: Center,
+              VerticalAlignment: Center,
+              LetterSpacing: 1
+            );
+          }
+        }
+      }
+
+      Group { Anchor: (Height: 8); }
+
+      Group #CommandsHeader {
+        LayoutMode: Left;
+        Anchor: (Height: 22);
+
+        Label {
+          Text: "COMMANDS";
+          Style: (
+            FontSize: 11,
+            TextColor: #7a90a8,
+            RenderUppercase: true,
+            LetterSpacing: 1.2
+          );
+        }
+      }
+
+      Group #CommandsContainer {
+        Anchor: (Height: 120);
+        LayoutMode: TopScrolling;
+        ScrollbarStyle: $C.@TranslucentScrollbarStyle;
+
+        Group #CommandsList {
+          LayoutMode: Top;
+        }
+      }
+
       Group #ListHeader {
         LayoutMode: Left;
         Anchor: (Height: 24);

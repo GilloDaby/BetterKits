@@ -10,20 +10,22 @@ public class KitDefinition {
     private long cooldownSeconds;
     private List<KitItem> items;
     private List<KitItem> armor;
+    private List<String> commands;
     private boolean allowKitStacking;
 
     public KitDefinition() {
         this.items = new ArrayList<>();
         this.armor = new ArrayList<>();
+        this.commands = new ArrayList<>();
         this.allowKitStacking = true;
     }
 
     public KitDefinition(String name, List<KitItem> items, List<KitItem> armor) {
-        this(name, name, 0L, items, armor, true);
+        this(name, name, 0L, items, armor, new ArrayList<>(), true);
     }
 
     public KitDefinition(String name, String displayName, long cooldownSeconds, List<KitItem> items, List<KitItem> armor) {
-        this(name, displayName, cooldownSeconds, items, armor, true);
+        this(name, displayName, cooldownSeconds, items, armor, new ArrayList<>(), true);
     }
 
     public KitDefinition(String name,
@@ -31,15 +33,18 @@ public class KitDefinition {
                          long cooldownSeconds,
                          List<KitItem> items,
                          List<KitItem> armor,
+                         List<String> commands,
                          boolean allowKitStacking) {
         this.items = new ArrayList<>();
         this.armor = new ArrayList<>();
+        this.commands = new ArrayList<>();
         this.allowKitStacking = true;
         this.name = name;
         this.displayName = displayName;
         this.cooldownSeconds = cooldownSeconds;
         this.items = items;
         this.armor = armor;
+        this.commands = commands;
         this.allowKitStacking = allowKitStacking;
     }
 
@@ -61,6 +66,10 @@ public class KitDefinition {
 
     public List<KitItem> getArmor() {
         return armor;
+    }
+
+    public List<String> getCommands() {
+        return commands;
     }
 
     public boolean isAllowKitStacking() {
@@ -85,6 +94,10 @@ public class KitDefinition {
 
     public void setArmor(List<KitItem> armor) {
         this.armor = armor;
+    }
+
+    public void setCommands(List<String> commands) {
+        this.commands = commands;
     }
 
     public void setAllowKitStacking(boolean allowKitStacking) {
@@ -117,7 +130,10 @@ public class KitDefinition {
         if (items == null ? that.items != null : !items.equals(that.items)) {
             return false;
         }
-        return armor == null ? that.armor == null : armor.equals(that.armor);
+        if (armor == null ? that.armor != null : !armor.equals(that.armor)) {
+            return false;
+        }
+        return commands == null ? that.commands == null : commands.equals(that.commands);
     }
 
     protected boolean canEqual(Object other) {
@@ -134,13 +150,14 @@ public class KitDefinition {
         result = result * 59 + (displayName == null ? 43 : displayName.hashCode());
         result = result * 59 + (items == null ? 43 : items.hashCode());
         result = result * 59 + (armor == null ? 43 : armor.hashCode());
+        result = result * 59 + (commands == null ? 43 : commands.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
         return "KitDefinition(name=" + name + ", displayName=" + displayName + ", cooldownSeconds="
-            + cooldownSeconds + ", items=" + items + ", armor=" + armor + ", allowKitStacking="
-            + allowKitStacking + ")";
+            + cooldownSeconds + ", items=" + items + ", armor=" + armor + ", commands=" + commands
+            + ", allowKitStacking=" + allowKitStacking + ")";
     }
 }

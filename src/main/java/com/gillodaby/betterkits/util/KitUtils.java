@@ -8,6 +8,8 @@ import com.gillodaby.betterkits.settings.KitSettings;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.command.system.CommandManager;
+import com.hypixel.hytale.server.core.console.ConsoleSender;
 import com.hypixel.hytale.server.core.command.system.CommandSender;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
@@ -118,6 +120,7 @@ public final class KitUtils {
         }
 
         plugin.setLastKit(playerId, kit);
+        runCommands(player, kit);
         return true;
     }
 
@@ -157,5 +160,54 @@ public final class KitUtils {
             return safeKitName(kit);
         }
         return displayName;
+    }
+
+    private static void runCommands(Player player, KitDefinition kit) {
+        if (player == null || kit == null || kit.getCommands() == null || kit.getCommands().isEmpty()) {
+            return;
+        }
+        String playerName = player.getDisplayName();
+        String uuid = player.getUuid() != null ? player.getUuid().toString() : "";
+        for (String raw : kit.getCommands()) {
+            if (raw == null || raw.isBlank()) {
+                continue;
+            }
+            String command = raw.trim();
+            if (command.startsWith("/")) {
+                command = command.substring(1).trim();
+            }
+            command = replaceBoth(command, "{player}", playerName);
+            command = replaceBoth(command, "%player%", playerName);
+            command = replaceBoth(command, "{uuid}", uuid);
+            command = replaceBoth(command, "%uuid%", uuid);
+            if (command.isBlank()) {
+                continue;
+            }
+            runCommandWithFallback(player, command);
+        }
+    }
+
+    private static void runCommandWithFallback(Player player, String command) {
+        if (command == null || command.isBlank()) {
+            return;
+        }
+        try {
+            CommandManager.get().handleCommand(ConsoleSender.INSTANCE, command);
+            return;
+        } catch (Exception ignored) {
+        }
+        if (player == null) {
+            return;
+        }
+        CommandManager.get().handleCommand(player.getPlayerRef(), command);
+    }
+
+    private static String replaceBoth(String input, String key, String value) {
+        if (input == null || key == null || key.isBlank()) {
+            return input;
+        }
+        String val = value == null ? "" : value;
+        String result = input.replace(key, val);
+        return result;
     }
 }
