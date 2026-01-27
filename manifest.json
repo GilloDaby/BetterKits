@@ -1,7 +1,7 @@
 {
   "Group": "GilloDaby",
   "Name": "Better Kits",
-  "Version": "1.0.1",
+  "Version": "1.1.0",
   "Main": "com.gillodaby.betterkits.BetterKitsPlugin",
   "Description": "Better kits plugin with commands and a selection menu.",
   "IncludesAssetPack": true,

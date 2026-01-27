@@ -9,6 +9,7 @@ import com.gillodaby.betterkits.settings.KitSettingsRepository;
 import com.gillodaby.betterkits.util.KitAssetManager;
 import com.gillodaby.betterkits.util.JsonUtil;
 import com.hypixel.hytale.logger.HytaleLogger;
+import com.hypixel.hytale.server.core.command.system.CommandManager;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 
@@ -182,8 +183,9 @@ public class BetterKitsPlugin extends JavaPlugin {
         assetManager = new KitAssetManager(getFile(), dataFolder, getLogger());
         assetManager.packKitAssets();
 
-        getCommandRegistry().registerCommand(new KitCommand(this));
-        getCommandRegistry().registerCommand(new KitsMenuCommand(this));
+        CommandManager commandManager = CommandManager.get();
+        commandManager.register(new KitCommand(this));
+        commandManager.register(new KitsMenuCommand(this));
     }
 
     @Override
