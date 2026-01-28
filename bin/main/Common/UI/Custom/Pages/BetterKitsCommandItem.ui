@@ -1,0 +1,35 @@
+Group {
+  Anchor: (Height: 36);
+  LayoutMode: Left;
+  Padding: (Left: 12, Right: 12, Top: 6, Bottom: 6);
+  Background: (Color: #161e2b);
+
+  Label #CommandText {
+    Text: "command";
+    Anchor: (Width: 480, Height: 24);
+    Style: (
+      FontSize: 12,
+      TextColor: #d4dfe8
+    );
+  }
+
+  Button #RemoveCommandButton {
+    Anchor: (Width: 110, Height: 24, Horizontal: 1);
+    Background: (Color: #2b1c1c);
+    Style: ButtonStyle(
+      Default: (Background: (Color: #2b1c1c)),
+      Hovered: (Background: (Color: #3a2323)),
+      Pressed: (Background: (Color: #221515))
+    );
+
+    Label {
+      Text: "REMOVE";
+      Style: (
+        FontSize: 11,
+        TextColor: #f2b7b7,
+        RenderBold: true,
+        RenderUppercase: true
+      );
+    }
+  }
+}

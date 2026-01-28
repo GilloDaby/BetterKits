@@ -1,0 +1,446 @@
+$C = "../Common.ui";
+
+Group {
+  Background: (Color: #000000(0.75));
+
+  Group {
+    Anchor: (Width: 720, Height: 620);
+
+    Group #TitleBar {
+      Anchor: (Height: 64, Top: 0);
+      Background: (Color: #0a0f17);
+
+      Group {
+        Anchor: (Height: 2, Bottom: 0);
+        Background: (Color: #1e2c3f);
+      }
+
+      Label #Title {
+        Text: "KIT EDITOR";
+        Style: (
+          FontSize: 22,
+          RenderBold: true,
+          TextColor: #d4dfe8,
+          RenderUppercase: true,
+          HorizontalAlignment: Center,
+          VerticalAlignment: Center,
+          LetterSpacing: 1.5
+        );
+      }
+    }
+
+    Group #Content {
+      LayoutMode: Top;
+      Anchor: (Top: 64, Bottom: 0);
+      Background: (Color: #0d1521);
+      Padding: (Horizontal: 24, Vertical: 18);
+
+      Label #KitName {
+        Text: "Selected: none";
+        Anchor: (Height: 22);
+        Style: (
+          FontSize: 13,
+          TextColor: #9fb3c8,
+          RenderBold: true,
+          RenderUppercase: true,
+          LetterSpacing: 0.8
+        );
+      }
+
+      Group { Anchor: (Height: 10); }
+
+      Group #Controls {
+        LayoutMode: Left;
+        Anchor: (Height: 46);
+
+        Button #AddFromHandButton {
+          Anchor: (Width: 180, Height: 44);
+          Background: (Color: #1e2c3f);
+          Style: ButtonStyle(
+            Default: (Background: (Color: #1e2c3f)),
+            Hovered: (Background: (Color: #273649)),
+            Pressed: (Background: (Color: #19273a)),
+            Sounds: $C.@ButtonSounds
+          );
+
+          Label {
+            Text: "ADD FROM HAND";
+            Style: (
+              FontSize: 12,
+              TextColor: #b4c4d3,
+              RenderBold: true,
+              RenderUppercase: true,
+              HorizontalAlignment: Center,
+              VerticalAlignment: Center,
+              LetterSpacing: 1
+            );
+          }
+        }
+
+        Group { Anchor: (Width: 12, Height: 1); }
+
+        Group #AddInputs {
+          LayoutMode: Left;
+          Anchor: (Height: 44, Width: 460);
+
+          Group {
+            Anchor: (Width: 280, Height: 44);
+            Background: (Color: #161e2b);
+            Padding: (Full: 2);
+
+            TextField #AddItemIdInput {
+              PlaceholderText: "ItemId (ex: Ingredient_Iron)";
+              Style: (FontSize: 14, TextColor: #d4dfe8);
+              PlaceholderStyle: (TextColor: #4a5d75, FontSize: 13);
+              Background: (Color: #00000000);
+              Padding: (Horizontal: 14, Vertical: 11);
+            }
+          }
+
+          Group { Anchor: (Width: 10, Height: 1); }
+
+          Group {
+            Anchor: (Width: 80, Height: 44);
+            Background: (Color: #161e2b);
+            Padding: (Full: 2);
+
+            TextField #AddQtyInput {
+              PlaceholderText: "Qty";
+              Style: (FontSize: 14, TextColor: #d4dfe8);
+              PlaceholderStyle: (TextColor: #4a5d75, FontSize: 13);
+              Background: (Color: #00000000);
+              Padding: (Horizontal: 8, Vertical: 11);
+            }
+          }
+
+          Group { Anchor: (Width: 10, Height: 1); }
+
+          Button #AddButton {
+            Anchor: (Width: 80, Height: 44);
+            Background: (Color: #1e2c3f);
+            Style: ButtonStyle(
+              Default: (Background: (Color: #1e2c3f)),
+              Hovered: (Background: (Color: #273649)),
+              Pressed: (Background: (Color: #19273a)),
+              Sounds: $C.@ButtonSounds
+            );
+
+            Label {
+              Text: "ADD";
+              Style: (
+                FontSize: 12,
+                TextColor: #b4c4d3,
+                RenderBold: true,
+                RenderUppercase: true,
+                HorizontalAlignment: Center,
+                VerticalAlignment: Center,
+                LetterSpacing: 1
+              );
+            }
+          }
+        }
+      }
+
+      Group { Anchor: (Height: 12); }
+
+      Group #CooldownRow {
+        LayoutMode: Left;
+        Anchor: (Height: 44);
+
+        Group {
+          Anchor: (Width: 200, Height: 44);
+          Background: (Color: #161e2b);
+          Padding: (Full: 2);
+
+          TextField #CooldownInput {
+            PlaceholderText: "Cooldown (sec)";
+            Style: (FontSize: 14, TextColor: #d4dfe8);
+            PlaceholderStyle: (TextColor: #4a5d75, FontSize: 13);
+            Background: (Color: #00000000);
+            Padding: (Horizontal: 12, Vertical: 11);
+          }
+        }
+
+        Group { Anchor: (Width: 12, Height: 1); }
+
+        Button #CooldownButton {
+          Anchor: (Width: 160, Height: 44);
+          Background: (Color: #1e2c3f);
+          Style: ButtonStyle(
+            Default: (Background: (Color: #1e2c3f)),
+            Hovered: (Background: (Color: #273649)),
+            Pressed: (Background: (Color: #19273a)),
+            Sounds: $C.@ButtonSounds
+          );
+
+          Label {
+            Text: "SET COOLDOWN";
+            Style: (
+              FontSize: 12,
+              TextColor: #b4c4d3,
+              RenderBold: true,
+              RenderUppercase: true,
+              HorizontalAlignment: Center,
+              VerticalAlignment: Center,
+              LetterSpacing: 1
+            );
+          }
+        }
+      }
+
+      Group { Anchor: (Height: 10); }
+
+      Group #WorldsRow {
+        LayoutMode: Left;
+        Anchor: (Height: 44);
+
+        Group {
+          Anchor: (Width: 360, Height: 44);
+          Background: (Color: #161e2b);
+          Padding: (Full: 2);
+
+          TextField #WorldsInput {
+            PlaceholderText: "Worlds (comma) or all";
+            Style: (FontSize: 14, TextColor: #d4dfe8);
+            PlaceholderStyle: (TextColor: #4a5d75, FontSize: 13);
+            Background: (Color: #00000000);
+            Padding: (Horizontal: 12, Vertical: 11);
+          }
+        }
+
+        Group { Anchor: (Width: 12, Height: 1); }
+
+        Button #WorldsButton {
+          Anchor: (Width: 140, Height: 44);
+          Background: (Color: #1e2c3f);
+          Style: ButtonStyle(
+            Default: (Background: (Color: #1e2c3f)),
+            Hovered: (Background: (Color: #273649)),
+            Pressed: (Background: (Color: #19273a)),
+            Sounds: $C.@ButtonSounds
+          );
+
+          Label {
+            Text: "SET WORLDS";
+            Style: (
+              FontSize: 12,
+              TextColor: #b4c4d3,
+              RenderBold: true,
+              RenderUppercase: true,
+              HorizontalAlignment: Center,
+              VerticalAlignment: Center,
+              LetterSpacing: 1
+            );
+          }
+        }
+      }
+
+      Group { Anchor: (Height: 10); }
+
+      Group #FlagsRow {
+        LayoutMode: Left;
+        Anchor: (Height: 44);
+
+        Button #FlagStackingButton {
+          Anchor: (Width: 150, Height: 44);
+          Background: (Color: #1e2c3f);
+          Style: ButtonStyle(
+            Default: (Background: (Color: #1e2c3f)),
+            Hovered: (Background: (Color: #273649)),
+            Pressed: (Background: (Color: #19273a)),
+            Sounds: $C.@ButtonSounds
+          );
+
+          Label #FlagStackingLabel {
+            Text: "STACKING: ON";
+            Style: (
+              FontSize: 11,
+              TextColor: #b4c4d3,
+              RenderBold: true,
+              RenderUppercase: true,
+              HorizontalAlignment: Center,
+              VerticalAlignment: Center
+            );
+          }
+        }
+
+        Group { Anchor: (Width: 10, Height: 1); }
+
+        Button #FlagOverlapButton {
+          Anchor: (Width: 150, Height: 44);
+          Background: (Color: #1e2c3f);
+          Style: ButtonStyle(
+            Default: (Background: (Color: #1e2c3f)),
+            Hovered: (Background: (Color: #273649)),
+            Pressed: (Background: (Color: #19273a)),
+            Sounds: $C.@ButtonSounds
+          );
+
+          Label #FlagOverlapLabel {
+            Text: "OVERLAP: ON";
+            Style: (
+              FontSize: 11,
+              TextColor: #b4c4d3,
+              RenderBold: true,
+              RenderUppercase: true,
+              HorizontalAlignment: Center,
+              VerticalAlignment: Center
+            );
+          }
+        }
+
+        Group { Anchor: (Width: 10, Height: 1); }
+
+        Button #FlagInvDelButton {
+          Anchor: (Width: 170, Height: 44);
+          Background: (Color: #1e2c3f);
+          Style: ButtonStyle(
+            Default: (Background: (Color: #1e2c3f)),
+            Hovered: (Background: (Color: #273649)),
+            Pressed: (Background: (Color: #19273a)),
+            Sounds: $C.@ButtonSounds
+          );
+
+          Label #FlagInvDelLabel {
+            Text: "INV DEL: OFF";
+            Style: (
+              FontSize: 11,
+              TextColor: #b4c4d3,
+              RenderBold: true,
+              RenderUppercase: true,
+              HorizontalAlignment: Center,
+              VerticalAlignment: Center
+            );
+          }
+        }
+      }
+
+      Group { Anchor: (Height: 10); }
+
+      Group #CommandsRow {
+        LayoutMode: Left;
+        Anchor: (Height: 44);
+
+        Group {
+          Anchor: (Width: 420, Height: 44);
+          Background: (Color: #161e2b);
+          Padding: (Full: 2);
+
+          TextField #CommandInput {
+            PlaceholderText: "Command (no /) - use {player}";
+            Style: (FontSize: 13, TextColor: #d4dfe8);
+            PlaceholderStyle: (TextColor: #4a5d75, FontSize: 12);
+            Background: (Color: #00000000);
+            Padding: (Horizontal: 12, Vertical: 11);
+          }
+        }
+
+        Group { Anchor: (Width: 12, Height: 1); }
+
+        Button #CommandAddButton {
+          Anchor: (Width: 140, Height: 44);
+          Background: (Color: #1e2c3f);
+          Style: ButtonStyle(
+            Default: (Background: (Color: #1e2c3f)),
+            Hovered: (Background: (Color: #273649)),
+            Pressed: (Background: (Color: #19273a)),
+            Sounds: $C.@ButtonSounds
+          );
+
+          Label {
+            Text: "ADD COMMAND";
+            Style: (
+              FontSize: 11,
+              TextColor: #b4c4d3,
+              RenderBold: true,
+              RenderUppercase: true,
+              HorizontalAlignment: Center,
+              VerticalAlignment: Center,
+              LetterSpacing: 1
+            );
+          }
+        }
+      }
+
+      Group { Anchor: (Height: 8); }
+
+      Group #CommandsHeader {
+        LayoutMode: Left;
+        Anchor: (Height: 22);
+
+        Label {
+          Text: "COMMANDS";
+          Style: (
+            FontSize: 11,
+            TextColor: #7a90a8,
+            RenderUppercase: true,
+            LetterSpacing: 1.2
+          );
+        }
+      }
+
+      Group #CommandsContainer {
+        Anchor: (Height: 120);
+        LayoutMode: TopScrolling;
+        ScrollbarStyle: $C.@TranslucentScrollbarStyle;
+
+        Group #CommandsList {
+          LayoutMode: Top;
+        }
+      }
+
+      Group #ListHeader {
+        LayoutMode: Left;
+        Anchor: (Height: 24);
+
+        Label {
+          Text: "ITEMS IN KIT";
+          Style: (
+            FontSize: 12,
+            TextColor: #7a90a8,
+            RenderUppercase: true,
+            LetterSpacing: 1.2
+          );
+        }
+      }
+
+      Group #ItemsContainer {
+        FlexWeight: 1;
+        LayoutMode: TopScrolling;
+        ScrollbarStyle: $C.@TranslucentScrollbarStyle;
+
+        Group #ItemsList {
+          LayoutMode: Top;
+        }
+      }
+
+      Group { Anchor: (Height: 12); }
+
+      Button #CloseButton {
+        Anchor: (Width: 120, Height: 40, Horizontal: 1);
+        Background: (Color: #1e2c3f);
+        Style: ButtonStyle(
+          Default: (Background: (Color: #1e2c3f)),
+          Hovered: (Background: (Color: #273649)),
+          Pressed: (Background: (Color: #19273a)),
+          Sounds: $C.@ButtonSounds
+        );
+
+        Label {
+          Text: "CLOSE";
+          Style: (
+            FontSize: 12,
+            TextColor: #b4c4d3,
+            RenderBold: true,
+            RenderUppercase: true,
+            HorizontalAlignment: Center,
+            VerticalAlignment: Center,
+            LetterSpacing: 1.1
+          );
+        }
+      }
+    }
+  }
+}
+
+$C.@BackButton {}
