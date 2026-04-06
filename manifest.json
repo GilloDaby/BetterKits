@@ -1,70 +1,71 @@
 {
-  "Group": "GilloDaby",
-  "Name": "Better Kits",
-  "Version": "1.1.0",
-  "Main": "com.gillodaby.betterkits.BetterKitsPlugin",
-  "Description": "Better kits plugin with commands and a selection menu.",
-  "IncludesAssetPack": true,
-  "permissions": {
-    "betterkits.admin": {
-      "description": "Legacy admin permission (fallback).",
-      "default": "op"
-    },
-    "betterkits.kits.create": {
-      "description": "Use /kit create.",
-      "default": "op"
-    },
-    "betterkits.kits.update": {
-      "description": "Use /kit update.",
-      "default": "op"
-    },
-    "betterkits.kits.use": {
-      "description": "Use /kit base command.",
-      "default": true
-    },
-    "betterkits.kits.menu": {
-      "description": "Use /kits.",
-      "default": true
-    },
-    "betterkits.kits.manage": {
-      "description": "Manage kit settings.",
-      "default": "op"
-    },
-    "betterkits.kits.list": {
-      "description": "Use /kit list.",
-      "default": true
-    },
-    "betterkits.kits.delete": {
-      "description": "Use /kit delete.",
-      "default": "op"
-    },
-    "betterkits.kits.reload": {
-      "description": "Use /kit reload.",
-      "default": "op"
-    },
-    "betterkits.kits.cooldown": {
-      "description": "Use /kit cooldown.",
-      "default": "op"
-    },
-    "betterkits.kits.worlds": {
-      "description": "Use /kit worlds.",
-      "default": "op"
-    },
-    "betterkits.kits.flags": {
-      "description": "Use /kit flags.",
-      "default": "op"
-    },
-    "betterkits.kits.get": {
-      "description": "Access all kits with /kit get <name>.",
-      "default": false
-    },
-    "betterkits.kits.get.<kitId>": {
-      "description": "Access a specific kit with /kit get <name>.",
-      "default": false
-    },
-    "betterkits.kits.get.*": {
-      "description": "Access any kit with /kit get <name>.",
-      "default": false
-    }
-  }
+    "Group":  "GilloDaby",
+    "Name":  "Better Kits",
+    "Version":  "1.1.3",
+    "Main":  "com.gillodaby.betterkits.BetterKitsPlugin",
+    "Description":  "Better kits plugin with commands and a selection menu.",
+    "IncludesAssetPack":  true,
+    "permissions":  {
+                        "betterkits.admin":  {
+                                                 "description":  "Legacy admin permission (fallback).",
+                                                 "default":  "op"
+                                             },
+                        "betterkits.kits.create":  {
+                                                       "description":  "Use /kit create.",
+                                                       "default":  "op"
+                                                   },
+                        "betterkits.kits.update":  {
+                                                       "description":  "Use /kit update.",
+                                                       "default":  "op"
+                                                   },
+                        "betterkits.kits.use":  {
+                                                    "description":  "Use /kit base command.",
+                                                    "default":  true
+                                                },
+                        "betterkits.kits.menu":  {
+                                                     "description":  "Use /kits.",
+                                                     "default":  true
+                                                 },
+                        "betterkits.kits.manage":  {
+                                                       "description":  "Manage kit settings.",
+                                                       "default":  "op"
+                                                   },
+                        "betterkits.kits.list":  {
+                                                     "description":  "Use /kit list.",
+                                                     "default":  true
+                                                 },
+                        "betterkits.kits.delete":  {
+                                                       "description":  "Use /kit delete.",
+                                                       "default":  "op"
+                                                   },
+                        "betterkits.kits.reload":  {
+                                                       "description":  "Use /kit reload.",
+                                                       "default":  "op"
+                                                   },
+                        "betterkits.kits.cooldown":  {
+                                                         "description":  "Use /kit cooldown.",
+                                                         "default":  "op"
+                                                     },
+                        "betterkits.kits.worlds":  {
+                                                       "description":  "Use /kit worlds.",
+                                                       "default":  "op"
+                                                   },
+                        "betterkits.kits.flags":  {
+                                                      "description":  "Use /kit flags.",
+                                                      "default":  "op"
+                                                  },
+                        "betterkits.kits.get":  {
+                                                    "description":  "Access all kits with /kit get \u003cname\u003e.",
+                                                    "default":  false
+                                                },
+                        "betterkits.kits.get.\u003ckitId\u003e":  {
+                                                                      "description":  "Access a specific kit with /kit get \u003cname\u003e.",
+                                                                      "default":  false
+                                                                  },
+                        "betterkits.kits.get.*":  {
+                                                      "description":  "Access any kit with /kit get \u003cname\u003e.",
+                                                      "default":  false
+                                                  }
+                    },
+    "ServerVersion":  "2026.02.17-255364b8e"
 }
